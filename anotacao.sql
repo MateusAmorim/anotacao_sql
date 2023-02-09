@@ -47,15 +47,182 @@
 --UPDATE pessoas SET qte_pontos=80 WHERE primeiro_nome="Danielle"; --"UPDATE" atualiza valores.
 --DELETE FROM pessoas WHERE primeiro_nome="Pedro"; --"DELETE" exclui dados da tabela.
 --show table status; --mostra a estrutura do banco de dados.
-select
-	ID_PILOTO,
-    NM_PILOTO,
-    case
-		when DT_NASCIMENTO is null then now()
-        else DT_NASCIMENTO
-	end 'DT_NASCIMENTO',
-    ID_PAIS,
-    ID_EQUIPE
-from 
-	tb_piloto; --substitui valor de data nulo por data atual.
-  
+--select
+--	ID_PILOTO,
+--   NM_PILOTO,
+--    case
+--		when DT_NASCIMENTO is null then now()
+--        else DT_NASCIMENTO
+--	end 'DT_NASCIMENTO',
+--    ID_PAIS,
+--    ID_EQUIPE
+--from 
+--	tb_piloto; --substitui valor de data nulo por data atual.
+
+
+
+-- aulas Udemy 'Banco de Dados SQL do ZERO ao Avançado 2023'
+
+-- use sakila; 
+
+-- select actor_id,first_name,last_name 
+-- from actor 
+-- where actor_id <= 10
+-- order by last_name;
+
+-- select 
+--     customer_id,
+--     amount - (amount * 0.10) as '10% discount'
+-- from payment
+-- where customer_id = 1;
+
+-- select * from payment
+-- order by amount desc;
+-- where amount != 0.99;
+
+-- select * from address
+-- where district != 'Texas';
+
+-- select * from customer
+-- where store_id = 1 
+-- and active = 0;
+
+-- select * from payment
+-- where staff_id = 1
+-- or amount = 0.99;
+
+-- select * from payment
+-- where staff_id = 1
+-- and amount = 0.99
+-- and customer_id < 10;
+
+-- select * from payment
+-- where not staff_id = 1 
+-- and amount != 0.99
+-- and customer_id < 10;
+
+-- select *
+-- from address
+-- where district in (
+--     'Alberta',
+--     'Texas', 
+--     'California'
+--     );
+
+-- select *
+-- from payment
+-- where amount
+-- between 1.99
+-- and 3.99;
+
+-- select *
+-- from actor
+-- where first_name
+-- like 'alb%';
+
+-- select *
+-- from actor
+-- where first_name
+-- like '%c';
+
+-- select *
+-- from address
+-- where address2 
+-- is null;
+
+-- select *
+-- from actor
+-- limit 99, 11;
+
+-- select *
+-- from actor
+-- where first_name
+-- regexp '^a|^d';
+
+-- select *
+-- from actor
+-- where first_name
+-- regexp '^[gcr]a';
+
+-- select *
+-- from customer
+-- join payment
+-- on customer.customer_id = payment.payment_id;
+
+-- select 
+--     customer.customer_id,
+--     customer.first_name,
+--     customer.last_name,
+--     payment.rental_id,
+--     payment.amount
+-- from customer
+-- join payment
+-- on customer.customer_id = 
+--     payment.payment_id
+
+-- select 
+--     cus.customer_id,
+--     cus.first_name,
+--     cus.last_name,
+--     pay.rental_id,
+--     pay.amount
+-- from customer cus
+-- join payment pay
+-- on cus.customer_id = 
+--     pay.payment_id
+
+-- select 
+--     cus.customer_id,
+--     cus.first_name,
+--     cus.last_name,
+--     adr.address,
+--     pay.rental_id,
+--     pay.amount
+-- from customer cus
+-- join payment pay
+--     on cus.customer_id = 
+--         pay.payment_id
+-- join address adr
+--     on cus.customer_id =
+--         adr.address_id
+
+-- select 
+--     cus.customer_id,
+--     cus.first_name,
+--     cus.last_name,
+--     adr.address,
+--     pay.rental_id,
+--     pay.amount
+-- from customer cus
+-- right join payment pay
+--     on cus.customer_id = 
+--         pay.payment_id
+-- left join address adr
+--     on cus.customer_id =
+--         adr.address_id
+
+-- select 
+--     cus.customer_id,
+--     cus.first_name,
+--     cus.last_name,
+--     pay.amount,
+--     'VIP' as Status
+-- from customer cus
+-- join payment pay
+--     on cus.customer_id =
+--         pay.payment_id
+--     where pay.amount >= 10.99;
+
+-- union
+
+-- select 
+--     cus.customer_id,
+--     cus.first_name,
+--     cus.last_name,
+--     pay.amount,
+--     'NON VIP' as Status
+-- from customer cus
+-- join payment pay
+--     on cus.customer_id =
+--         pay.payment_id
+--     where pay.amount < 10.99;
