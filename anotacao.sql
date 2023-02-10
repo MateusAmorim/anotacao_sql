@@ -302,3 +302,58 @@ group by customer_id
 having Total >= 150 and Compras >= 35
 order by Total desc;
 
+select *
+from payment
+where amount > (
+	select avg(amount)
+	from payment
+    );
+
+select *
+from payment
+where amount = (
+	select max(amount)
+	from payment
+	where customer_id = 1
+	);
+	
+SELECT * FROM customer
+WHERE customer_id IN (
+	select customer_id
+	from payment
+	group by customer_id
+	having count(*) > 35
+);
+
+SELECT * 
+FROM customer
+WHERE customer_id = ANY (
+	select customer_id
+	from payment
+	group by customer_id
+	having count(*) > 35
+);
+
+-- criando view
+create view vendas_por_cliente as
+select
+	cus.customer_id,
+    cus.first_name,
+    cus.last_name,
+    pay.amount
+from customer as cus
+join payment as pay
+	on cus.customer_id = pay.payment_id;
+	
+-- melhor forma de criar view
+create or replace view vendas_por_cliente as
+select
+	cus.customer_id,
+    cus.first_name,
+    cus.last_name,
+    pay.amount
+from customer as cus
+join payment as pay
+	on cus.customer_id = pay.payment_id
+order by pay.amount desc;
+
