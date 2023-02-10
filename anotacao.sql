@@ -225,3 +225,68 @@ from
      on cus.customer_id =
          pay.payment_id
      where pay.amount < 10.99;
+
+insert into language
+values(default, 'Portuguese', '2008-02-10 05:02:19');
+
+insert into language
+values
+	(default, 'Portuguese', '2008-02-10 05:02:19'),
+    (default, 'Spanish', '2009-02-10 05:02:19'),
+    (default, 'Polish', '2010-02-10 05:02:19');
+    
+insert into country
+values
+	(default, 'Brasil2', '2035-02-15 04:44:00')
+    
+insert into city
+values
+	(default, 'Sao Paulo2', last_insert_id(), '2034-02-15 04:44:00')
+
+-- criando copia de tabela
+create table payment_backup as
+select * from payment;    
+
+-- atualisando registro
+update payment
+set
+	amount = 15.99
+where payment_id = 1
+
+-- deletando um valor
+delete from payment
+where payment_id = 16041
+
+-- funções
+select 
+	max(amount) as Maior,
+    min(amount) as Menor,
+    avg(amount) as Media
+from payment;
+
+select 
+	max(amount) as Maior,
+    min(amount) as Menor,
+    avg(amount) as 'Media de Valores',
+    sum(amount) as 'Total de Vendas',
+    count(amount) as 'Numero de Vendas'
+from payment
+where staff_id = 2;
+
+select 
+	customer_id,
+    sum(amount) as total
+from payment
+group by customer_id
+order by total desc;
+
+select 
+	cus.customer_id as ID,
+    cus.first_name as Nome,
+    cus.last_name as Sobrenome,
+    sum(amount) as Total
+from payment py
+join customer cus using(customer_id)
+group by customer_id
+order by Total desc;
+
